@@ -13,9 +13,6 @@ function Models({ models, tickers }) {
     return (
         <div className='models'>
             <Search options={tickers} value={searchValue} setSearchValue={setSearchValue} />
-            <button type="button" onClick={() => push(`${url}/new`)}>
-                Create New Model
-            </button>
             <ModelList models={models} searchValue={searchValue} />
         </div>
     )

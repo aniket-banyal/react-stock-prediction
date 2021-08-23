@@ -19,22 +19,17 @@ function ModelList({ models, searchValue }) {
             {filteredModels.length < 1 ? <div>No models found</div> :
                 filteredModels.map(model => {
                     return (
-                        <div key={model.id} style={{ border: '1px solid black', width: '20rem' }}>
-                            {/* <Link to={`/models/${model.id}`}> */}
-                            <h1>{model.name}</h1>
+                        <div key={model.ticker} style={{ border: '1px solid black', width: '20rem' }}>
+                            {/* <Link to={`/models/${model.ticker}`}> */}
                             <p>{model.ticker}</p>
                             {/* </Link> */}
                             <div>
-                                <button type="button" onClick={() => push(`${url}/${model.id}`)}>
+                                <button type="button" onClick={() => push(`${url}/${model.ticker}`)}>
                                     Details
                                 </button>
 
-                                <button type="button" onClick={() => push(`${url}/${model.id}/predict`)}>
+                                <button type="button" onClick={() => push(`${url}/${model.ticker}/predict`)}>
                                     Predict
-                                </button>
-
-                                <button type="button" onClick={() => push(`${url}/${model.id}/train`)}>
-                                    Train
                                 </button>
                             </div>
                         </div>

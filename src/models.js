@@ -1,4 +1,3 @@
-import { useHistory, useRouteMatch } from "react-router-dom"
 import ModelList from './modelList'
 import Search from './search'
 import { useState } from 'react'
@@ -6,9 +5,6 @@ import { useState } from 'react'
 function Models({ models, tickers }) {
     console.log('models render')
     const [searchValue, setSearchValue] = useState('')
-
-    const { url } = useRouteMatch()
-    const { push } = useHistory()
 
     return (
         <div className='models'>

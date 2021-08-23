@@ -9,7 +9,7 @@ function ModelPredict({ model }) {
     const fetchPrediction = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        const res = await fetch(`http://localhost:8000/api/predict/${model.id}/?` + new URLSearchParams({
+        const res = await fetch(`http://localhost:8000/api/prediction/${model.ticker}/?` + new URLSearchParams({
             pred_date: predictionDate,
         }))
         const predictionValue = await res.json()

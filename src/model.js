@@ -1,4 +1,3 @@
-import React from "react"
 import { useParams, useRouteMatch, useHistory } from "react-router-dom"
 import ModelDetail from "./modelDetail"
 import { Route, Switch } from 'react-router-dom'

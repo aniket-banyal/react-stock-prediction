@@ -10,7 +10,6 @@ function ModelCard() {
             </Link>
         </div>
     )
-
 }
 
 

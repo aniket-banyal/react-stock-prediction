@@ -2,6 +2,7 @@ import './App.css'
 import Home from './home'
 import Models from './models'
 import Model from './model'
+import Predictions from './predictions'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
@@ -38,6 +39,7 @@ function App() {
         <Switch>
           <Route exact path='/' ><Home /> </Route>
           <Route exact path='/models' ><Models models={models} tickers={tickers} /> </Route>
+          <Route exact path='/predictions' ><Predictions models={models} tickers={tickers} /> </Route>
           <Route path='/models/:symbol' ><Model all_models={models} /> </Route>
         </Switch>
       </Router>

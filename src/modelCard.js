@@ -1,13 +1,24 @@
-import { Link } from "react-router-dom"
+import { useRouteMatch, useHistory } from "react-router-dom"
 
-function ModelCard() {
-    console.log('modelcard render')
+
+function ModelCard({ model }) {
+    console.log('ModelCard render')
+
+    const { url } = useRouteMatch()
+    const { push } = useHistory()
 
     return (
-        <div className="card">
-            <Link to='/models'>
-                <h1>Models Card</h1>
-            </Link>
+        <div style={{ border: '1px solid black', width: '20rem' }}>
+            <p>{model.ticker}</p>
+            <div>
+                <button type="button" onClick={() => push(`${url}/${model.ticker}`)}>
+                    Details
+                </button>
+
+                <button type="button" onClick={() => push(`${url}/${model.ticker}/predict`)}>
+                    Predict
+                </button>
+            </div>
         </div>
     )
 }

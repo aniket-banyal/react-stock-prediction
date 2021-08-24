@@ -1,5 +1,5 @@
-import ModelCard from "./modelCard"
-import PredictionCard from "./predictionCard"
+import ModelsCard from "./modelsCard"
+import PredictionsCard from "./predictionsCard"
 
 
 function Home() {
@@ -7,8 +7,8 @@ function Home() {
 
     return (
         <div className="home">
-            <ModelCard />
-            <PredictionCard />
+            <ModelsCard />
+            <PredictionsCard />
         </div>
     )
 

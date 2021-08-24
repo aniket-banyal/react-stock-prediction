@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
-function PredictionCard() {
-    console.log('PredictionCard render')
+function PredictionsCard() {
+    console.log('PredictionsCard render')
 
     return (
         <div className="card">
@@ -13,4 +13,4 @@ function PredictionCard() {
 }
 
 
-export default PredictionCard
+export default PredictionsCard

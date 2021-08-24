@@ -1,8 +1,8 @@
 import './App.css'
-import Home from './home'
-import Models from './models'
-import Model from './model'
-import Predictions from './predictions'
+import Home from './components/home'
+import Models from './components/models'
+import Model from './components/model'
+import Predictions from './components/predictions'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 

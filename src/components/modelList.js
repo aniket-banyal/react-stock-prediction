@@ -2,12 +2,15 @@ import { useMemo } from "react"
 import ModelCard from "./modelCard"
 
 
-function ModelList({ models, searchValue }) {
+function ModelList({ models, selectedTickers }) {
     console.log('ModelList render')
 
     const filteredModels = useMemo(() => {
-        return searchValue ? models.filter(model => model.ticker.toLowerCase() === searchValue.toLowerCase()) : models
-    }, [searchValue, models])
+        return selectedTickers.length > 0 ? models.filter(model => selectedTickers.includes(model.ticker)) : models
+    }, [selectedTickers, models])
+
+    // sort models based on the order in which tickes were selected in Select component
+    filteredModels.sort((a, b) => selectedTickers.indexOf(a.ticker) - selectedTickers.indexOf(b.ticker))
 
     return (
         <div className='modellist'>
@@ -18,7 +21,6 @@ function ModelList({ models, searchValue }) {
         </div>
 
     )
-
 }
 
 export default ModelList

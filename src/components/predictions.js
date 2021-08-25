@@ -1,7 +1,7 @@
-import PredictionList from './predictionList'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Select from 'react-select'
-
+import Prediction from "./prediction"
+import List from './common/list'
 
 function Predictions({ models, tickers }) {
     console.log('Predictions render')
@@ -15,13 +15,35 @@ function Predictions({ models, tickers }) {
         setSelectedTickers(selected)
     }
 
+    const filteredModels = useMemo(() => {
+        return selectedTickers.length > 0 ? models.filter(model => selectedTickers.includes(model.ticker)) : models
+    }, [selectedTickers, models])
+
+    filteredModels.sort((a, b) => selectedTickers.indexOf(a.ticker) - selectedTickers.indexOf(b.ticker))
+
+
     return (
         <div className='predictions'>
-            <Select options={options} placeholder='Select ticker'
-                autoFocus isClearable isMulti
+            <Select
+                options={options}
+                placeholder='Select ticker'
+                autoFocus
+                isClearable
+                isMulti
                 onChange={handleSelectChange} />
-            <p> Predictions for: {predictionDate} </p>
-            <PredictionList models={models} selectedTickers={selectedTickers} setPredictionDate={setPredictionDate} />
+
+            {predictionDate && <p> Predictions for: {predictionDate} </p>}
+
+            <List>
+                {filteredModels.length < 1 ? <div>No models found</div>
+                    :
+                    filteredModels.map(model =>
+                        <Prediction
+                            key={model.ticker}
+                            model={model}
+                            setPredictionDate={setPredictionDate} />
+                    )}
+            </List>
         </div>
     )
 }

@@ -2,7 +2,7 @@ import { Button, Card, CardActions, CardContent, makeStyles, Typography } from "
 import { useRouteMatch, Link as RouterLink } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getLatestPrediction, saveToLocalStorage } from '../utils/latestPredictions'
-
+import { red, green } from "@material-ui/core/colors"
 
 const useStyles = makeStyles({
     root: {
@@ -11,17 +11,18 @@ const useStyles = makeStyles({
     title: {
         fontSize: 25,
     },
+    predictionClass: prediction => ({ color: prediction > 0 ? green[600] : red[600] })
 })
 
 
 function ModelCard({ model, setPredictionDate }) {
     console.log('ModelCard render')
-    const classes = useStyles()
-
     const { url } = useRouteMatch()
 
     const [prediction, setPrediction] = useState()
     const [isLoading, setIsLoading] = useState(false)
+
+    const classes = useStyles(prediction?.prediction)
 
     useEffect(() => {
         const fetchPrediction = async () => {
@@ -47,12 +48,15 @@ function ModelCard({ model, setPredictionDate }) {
 
                 <Typography
                     variant="subtitle1"
-                    color='textSecondary'>
+                    color='textSecondary'
+                >
                     Prediction
                 </Typography>
 
                 <Typography
-                    variant="h5">
+                    variant="h5"
+                    className={classes.predictionClass}
+                >
                     {isLoading && 'Loading...'}
                     {prediction && `${prediction?.prediction.toFixed(2)} %`}
                 </Typography>

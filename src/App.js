@@ -1,4 +1,3 @@
-import './App.css'
 import Home from './components/home'
 import Models from './components/models'
 import Model from './components/model'

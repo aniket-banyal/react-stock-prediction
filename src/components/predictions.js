@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react'
 import Select from 'react-select'
-import Prediction from "./prediction"
-import List from './common/list'
+import PredictionCard from "./predictionCard"
+import SimpleGrid from './common/simpleGrid'
+import { Container } from '@material-ui/core'
 
 function Predictions({ models, tickers }) {
     console.log('Predictions render')
@@ -23,7 +24,7 @@ function Predictions({ models, tickers }) {
 
 
     return (
-        <div className='predictions'>
+        <Container>
             <Select
                 options={options}
                 placeholder='Select ticker'
@@ -34,17 +35,17 @@ function Predictions({ models, tickers }) {
 
             {predictionDate && <p> Predictions for: {predictionDate} </p>}
 
-            <List>
+            <SimpleGrid>
                 {filteredModels.length < 1 ? <div>No models found</div>
                     :
                     filteredModels.map(model =>
-                        <Prediction
+                        <PredictionCard
                             key={model.ticker}
                             model={model}
                             setPredictionDate={setPredictionDate} />
                     )}
-            </List>
-        </div>
+            </SimpleGrid>
+        </Container>
     )
 }
 

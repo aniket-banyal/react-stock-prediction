@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import Select from 'react-select'
-import List from './common/list'
+import { Container } from '@material-ui/core'
+import SimpleGrid from './common/simpleGrid'
 import ModelCard from './modelCard'
 
 
@@ -25,7 +26,7 @@ function Models({ models, tickers }) {
 
 
     return (
-        <div className='models'>
+        <Container>
             <Select
                 options={options}
                 placeholder='Select ticker'
@@ -34,7 +35,7 @@ function Models({ models, tickers }) {
                 isMulti
                 onChange={handleSelectChange} />
 
-            <List>
+            <SimpleGrid>
                 {filteredModels.length < 1 ?
                     <div>No models found</div>
                     :
@@ -43,8 +44,8 @@ function Models({ models, tickers }) {
                             key={model.ticker}
                             model={model} />
                     )}
-            </List>
-        </div>
+            </SimpleGrid>
+        </Container>
     )
 }
 

@@ -1,25 +1,50 @@
-import { useRouteMatch, useHistory } from "react-router-dom"
+import { Button, Card, CardActions, CardContent, makeStyles, Typography } from "@material-ui/core"
+import { useRouteMatch, Link as RouterLink } from "react-router-dom"
+
+
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 345
+    },
+    title: {
+        fontSize: 25,
+    },
+})
 
 
 function ModelCard({ model }) {
     console.log('ModelCard render')
+    const classes = useStyles()
 
     const { url } = useRouteMatch()
-    const { push } = useHistory()
 
     return (
-        <div style={{ border: '1px solid black', width: '20rem' }}>
-            <p>{model.ticker}</p>
-            <div>
-                <button type="button" onClick={() => push(`${url}/${model.ticker}`)}>
-                    Details
-                </button>
+        <Card className={classes.root}>
+            <CardContent>
+                <Typography className={classes.title} color="primary" gutterBottom>
+                    {model.ticker}
+                </Typography>
+            </CardContent>
 
-                <button type="button" onClick={() => push(`${url}/${model.ticker}/predict`)}>
+            <CardActions>
+                <Button
+                    variant="contained"
+                    size="small"
+                    component={RouterLink}
+                    to={`${url}/${model.ticker}`}
+                >
+                    Details
+                </Button>
+                <Button
+                    variant="contained"
+                    size="small"
+                    component={RouterLink}
+                    to={`${url}/${model.ticker}/predict`}
+                >
                     Predict
-                </button>
-            </div>
-        </div>
+                </Button>
+            </CardActions>
+        </Card >
     )
 }
 

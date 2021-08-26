@@ -1,4 +1,6 @@
+import { Card, CardActionArea, CardContent, makeStyles, Typography } from "@material-ui/core"
 import { useEffect, useState } from "react"
+import { Link as RouterLink } from "react-router-dom"
 
 function getMarketClosed() {
     const today = new Date()
@@ -47,8 +49,20 @@ const getLatestData = async (ticker) => {
 }
 
 
-function Prediction({ model, setPredictionDate }) {
-    console.log('Prediction render')
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 345
+    },
+    title: {
+        fontSize: 25,
+    },
+})
+
+
+function PredictionCard({ model, setPredictionDate }) {
+    console.log('PredictionCard render')
+    const classes = useStyles()
+
     const [prediction, setPrediction] = useState()
     const [isLoading, setIsLoading] = useState(false)
 
@@ -67,16 +81,21 @@ function Prediction({ model, setPredictionDate }) {
     }, [model, setPredictionDate])
 
     return (
-        <div style={{ border: '1px solid black', width: '20rem' }}>
-            <p>{model.ticker}</p>
-            {isLoading ? <p>Loading...</p>
-                :
-                <div>
-                    <p>Prediction: {prediction?.prediction}</p>
-                </div>
-            }
-        </div>
+        <Card className={classes.root}>
+            <CardActionArea component={RouterLink} to={`/models/${model.ticker}`} >
+                <CardContent>
+                    <Typography className={classes.title} color="primary" gutterBottom>
+                        {model.ticker}
+                    </Typography>
+
+                    <Typography color="textPrimary" gutterBottom>
+                        {isLoading ? 'Loading...' : `Prediction: ${prediction?.prediction.toFixed(2)} %`}
+                    </Typography>
+                </CardContent>
+            </CardActionArea >
+        </Card >
     )
 }
 
-export default Prediction
+
+export default PredictionCard

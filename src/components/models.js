@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import Select from 'react-select'
-import { Container } from '@material-ui/core'
+import { Container, Typography } from '@material-ui/core'
 import SimpleGrid from './common/simpleGrid'
 import ModelCard from './modelCard'
 
@@ -9,6 +9,7 @@ function Models({ models, tickers }) {
     console.log('Models render')
 
     const [selectedTickers, setSelectedTickers] = useState([])
+    const [predictionDate, setPredictionDate] = useState('')
     const options = tickers.map(ticker => ({ value: ticker.symbol, label: ticker.symbol }))
 
     const handleSelectChange = options => {
@@ -35,6 +36,8 @@ function Models({ models, tickers }) {
                 isMulti
                 onChange={handleSelectChange} />
 
+            {predictionDate && <Typography gutterBottom> Predictions for: {predictionDate} </Typography>}
+
             <SimpleGrid>
                 {filteredModels.length < 1 ?
                     <div>No models found</div>
@@ -42,7 +45,8 @@ function Models({ models, tickers }) {
                     filteredModels.map(model =>
                         <ModelCard
                             key={model.ticker}
-                            model={model} />
+                            model={model}
+                            setPredictionDate={setPredictionDate} />
                     )}
             </SimpleGrid>
         </Container>

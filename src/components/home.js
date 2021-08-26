@@ -6,7 +6,6 @@ function Home() {
     return (
         <div className="home">
             <HomePageCard title='Models' link='/models' />
-            <HomePageCard title='Predictions' link='/predictions' />
         </div>
     )
 }

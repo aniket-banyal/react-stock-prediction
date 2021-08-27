@@ -26,7 +26,7 @@ function ModelCard({ model, setPredictionDate }) {
 
     useEffect(() => {
         const fetchPrediction = async () => {
-            console.log('prediction fetchPrediction useEffect')
+            console.log('ModelCard fetchPrediction useEffect')
             setIsLoading(true)
 
             const data = await getLatestPrediction(model.ticker)
@@ -58,7 +58,7 @@ function ModelCard({ model, setPredictionDate }) {
                     className={classes.predictionClass}
                 >
                     {isLoading && 'Loading...'}
-                    {prediction && `${prediction?.prediction.toFixed(2)} %`}
+                    {prediction && `${prediction?.prediction} %`}
                 </Typography>
 
             </CardContent>

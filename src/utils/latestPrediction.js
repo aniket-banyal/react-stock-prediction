@@ -44,4 +44,4 @@ const getLatestPrediction = async (ticker) => {
     return data
 }
 
-export { getLatestPrediction, saveToLocalStorage }
+export { getLatestPrediction, saveToLocalStorage, getMarketClosed }

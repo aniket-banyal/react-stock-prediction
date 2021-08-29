@@ -1,7 +1,7 @@
 import { Button, Card, CardActions, CardContent, makeStyles, Typography } from "@material-ui/core"
 import { useRouteMatch, Link as RouterLink } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { getLatestPrediction, saveToLocalStorage } from '../utils/latestPredictions'
+import { getLatestPrediction, saveToLocalStorage } from '../utils/latestPrediction'
 import { red, green } from "@material-ui/core/colors"
 
 const useStyles = makeStyles({

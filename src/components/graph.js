@@ -80,7 +80,7 @@ function Graph({ ticker }) {
                         strokeWidth={2}
                         // dot={false}
                         name='Prediction'
-                        animationDuration={500}
+                        isAnimationActive={false}
                     />
                     <Line
                         type="monotone"
@@ -89,7 +89,7 @@ function Graph({ ticker }) {
                         strokeWidth={2}
                         // dot={false}
                         name='Actual'
-                        animationDuration={500}
+                        isAnimationActive={false}
                     />
                 </LineChart>
                 : <Typography variant='h6'>Loading graph...</Typography>

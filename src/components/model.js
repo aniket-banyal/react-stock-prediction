@@ -41,8 +41,12 @@ function Model({ all_models }) {
                         <Tab label="Details" />
                         <Tab label="Predict" />
                     </Tabs>
-                    {selectedTab === 0 && <ModelDetail model={model} />}
-                    {selectedTab === 1 && <ModelPredict model={model} />}
+                    <div style={{ display: selectedTab === 0 ? 'block' : 'none' }}>
+                        <ModelDetail model={model} />
+                    </div>
+                    <div style={{ display: selectedTab === 1 ? 'block' : 'none' }}>
+                        <ModelPredict model={model} />
+                    </div>
                 </div >
                 : <div>404 Not Found</div>
             }

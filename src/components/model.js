@@ -1,40 +1,48 @@
-import { useParams, useRouteMatch, useHistory } from "react-router-dom"
+import { useState } from 'react'
+import { useParams } from "react-router-dom"
+import { Tabs, Tab, makeStyles } from "@material-ui/core"
 import ModelDetail from "./modelDetail"
-import { Route, Switch } from 'react-router-dom'
 import ModelPredict from "./modelPredict"
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        display: 'flex',
+        height: '100vh',
+    },
+    tabs: {
+        borderRight: `1px solid ${theme.palette.divider}`,
+        backgroundColor: '#e0e0e0',
+    },
+}))
+
 
 function Model({ all_models }) {
     console.log('Model render')
 
-    const { symbol } = useParams()
+    const [selectedTab, setSelectedTab] = useState(0)
 
-    const { path, url } = useRouteMatch()
-    const { push } = useHistory()
+    const { symbol } = useParams()
+    const classes = useStyles()
 
     const model = all_models.filter(model => model.ticker.toLowerCase() === symbol.toLowerCase())[0]
 
     return (
         <>
             {model ?
-                <div>
-                    < div >
-                        <button type="button" onClick={() => push(`${url}`)}>
-                            Details
-                        </button>
-
-                        <button type="button" onClick={() => push(`${url}/predict`)}>
-                            Predict
-                        </button>
-                    </div >
-
-                    <Switch>
-                        <Route exact path={path}>
-                            <ModelDetail model={model} />
-                        </Route>
-                        <Route path={`${path}/predict`}>
-                            <ModelPredict model={model} />
-                        </Route>
-                    </Switch>
+                <div className={classes.root}>
+                    <Tabs
+                        value={selectedTab}
+                        onChange={(e, newValue) => { setSelectedTab(newValue) }}
+                        orientation="vertical"
+                        className={classes.tabs}
+                    >
+                        <Tab label="Details" />
+                        <Tab label="Predict" />
+                    </Tabs>
+                    {selectedTab === 0 && <ModelDetail model={model} />}
+                    {selectedTab === 1 && <ModelPredict model={model} />}
                 </div >
                 : <div>404 Not Found</div>
             }

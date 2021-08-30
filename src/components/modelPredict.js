@@ -1,3 +1,4 @@
+import { Container } from "@material-ui/core"
 import { useState } from "react"
 
 function ModelPredict({ model }) {
@@ -19,7 +20,7 @@ function ModelPredict({ model }) {
     }
 
     return (
-        <>
+        <Container>
             {model ?
                 <div>
                     <form onSubmit={fetchPrediction} >
@@ -32,7 +33,7 @@ function ModelPredict({ model }) {
                 </div >
                 : <div>Loading....</div>
             }
-        </>
+        </Container>
     )
 }
 

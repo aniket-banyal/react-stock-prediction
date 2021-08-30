@@ -15,13 +15,13 @@ function formatDate(date) {
 }
 
 const periods = [{ days: 7, label: '1 week' }, { days: 14, label: '2 weeks' }]
-const defaultPeriod = periods[0].days
+const defaultDays = periods[0].days
 
 
 function Graph({ ticker }) {
     console.log('Graph render')
 
-    const [period, setPeriod] = useState(defaultPeriod)
+    const [days, setDays] = useState(defaultDays)
     const [predictions, setPredictions] = useState([])
 
     useEffect(() => {
@@ -30,9 +30,9 @@ function Graph({ ticker }) {
         setPredictions([])
 
         const fetchPredictions = async () => {
-            const predictions = await getPreviousPredictions(ticker, period, periods[periods.length - 1].days)
+            const predictions = await getPreviousPredictions(ticker, days, periods[periods.length - 1].days)
             setPredictions(predictions)
-            if (period === periods[periods.length - 1].days) {
+            if (days === periods[periods.length - 1].days) {
                 localStorage.setItem(`${ticker}-predictions`, JSON.stringify(predictions))
 
                 const date = new Date()
@@ -43,7 +43,7 @@ function Graph({ ticker }) {
         }
 
         fetchPredictions()
-    }, [ticker, period])
+    }, [ticker, days])
 
 
     const data = predictions.map(prediction =>
@@ -53,7 +53,7 @@ function Graph({ ticker }) {
     return (
         <div style={{ width: 'fit-content' }}>
             {periods.map(period =>
-                <Button variant='contained' key={period.days} onClick={() => setPeriod(period.days)} > {period.label} </Button>)}
+                <Button variant='contained' key={period.days} onClick={() => setDays(period.days)} > {period.label} </Button>)}
 
             {data.length > 0 ?
                 <LineChart

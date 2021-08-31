@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import Select from 'react-select'
-import { Container, Typography } from '@material-ui/core'
+import { Box, Container, Typography } from '@material-ui/core'
 import SimpleGrid from './common/simpleGrid'
 import ModelCard from './modelCard'
 
@@ -27,7 +27,7 @@ function Models({ models, tickers }) {
 
 
     return (
-        <Container>
+        <Container style={{ padding: '40px' }}>
             <Select
                 options={options}
                 placeholder='Select ticker'
@@ -36,7 +36,13 @@ function Models({ models, tickers }) {
                 isMulti
                 onChange={handleSelectChange} />
 
-            {predictionDate && <Typography gutterBottom> Predictions for: {predictionDate} </Typography>}
+            {predictionDate &&
+                <Typography variant='h4' align='center'>
+                    <Box fontWeight="fontWeightLight" my={5}>
+                        Predictions for: {predictionDate}
+                    </Box>
+                </Typography>
+            }
 
             <SimpleGrid>
                 {filteredModels.length < 1 ?

@@ -32,7 +32,7 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
+    <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <Router>
         <Switch>
           <Route exact path='/' ><Home /> </Route>

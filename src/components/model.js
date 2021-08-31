@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         display: 'flex',
-        height: '100vh',
+        width: '100%',
+        height: '100%',
     },
     tabs: {
         borderRight: `1px solid ${theme.palette.divider}`,
@@ -29,7 +30,7 @@ function Model({ all_models }) {
     const model = all_models.filter(model => model.ticker.toLowerCase() === symbol.toLowerCase())[0]
 
     return (
-        <>
+        <div style={{ width: '100%', height: '100%' }}>
             {model ?
                 <div className={classes.root}>
                     <Tabs
@@ -41,7 +42,7 @@ function Model({ all_models }) {
                         <Tab label="Details" />
                         <Tab label="Predict" />
                     </Tabs>
-                    <div style={{ display: selectedTab === 0 ? 'block' : 'none' }}>
+                    <div style={{ display: selectedTab === 0 ? 'block' : 'none', width: '100%', height: '100%' }}>
                         <ModelDetail model={model} />
                     </div>
                     <div style={{ display: selectedTab === 1 ? 'block' : 'none' }}>
@@ -50,7 +51,7 @@ function Model({ all_models }) {
                 </div >
                 : <div>404 Not Found</div>
             }
-        </>
+        </div>
     )
 }
 

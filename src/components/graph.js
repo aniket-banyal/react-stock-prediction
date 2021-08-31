@@ -1,7 +1,7 @@
 import { Tabs, Tab, makeStyles } from "@material-ui/core"
 import { Typography } from '@material-ui/core'
 import { useState, useEffect } from 'react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, ResponsiveContainer } from 'recharts'
 import { getPreviousPredictions } from '../utils/previousPredictions'
 import { getMarketClosed } from '../utils/latestPrediction'
 
@@ -68,7 +68,7 @@ function Graph({ ticker }) {
     }
 
     return (
-        <div>
+        <div style={{ width: '100%', height: '100%' }} >
             <Tabs
                 value={selectedPeriod}
                 onChange={handleTabChange}
@@ -79,42 +79,42 @@ function Graph({ ticker }) {
             </Tabs>
 
             {data.length > 0 ?
-                <LineChart
-                    width={600}
-                    height={600}
-                    data={data}
-                    margin={{ top: 30, right: 30, left: 30, bottom: 30 }}
-                >
-                    <XAxis dataKey="date" />
-                    <YAxis padding={{ bottom: 30 }}>
-                        <Label
-                            value='% Change in Closing Price'
-                            angle={-90}
-                            position="insideBottomLeft"
+                <ResponsiveContainer>
+                    <LineChart
+                        data={data}
+                        margin={{ top: 30, right: 30, left: 30, bottom: 30 }}
+                    >
+                        <XAxis dataKey="date" />
+                        <YAxis padding={{ bottom: 30 }}>
+                            <Label
+                                value='% Change in Closing Price'
+                                angle={-90}
+                                position="insideBottomLeft"
+                            />
+                        </YAxis>
+                        <CartesianGrid stroke="#f5f5f5" />
+                        <Tooltip />
+                        <Legend wrapperStyle={{ position: 'relative' }} />
+                        <Line
+                            type="monotone"
+                            dataKey="prediction"
+                            stroke="#ff7300"
+                            strokeWidth={2}
+                            // dot={false}
+                            name='Prediction'
+                            isAnimationActive={false}
                         />
-                    </YAxis>
-                    <CartesianGrid stroke="#f5f5f5" />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                        type="monotone"
-                        dataKey="prediction"
-                        stroke="#ff7300"
-                        strokeWidth={2}
-                        // dot={false}
-                        name='Prediction'
-                        isAnimationActive={false}
-                    />
-                    <Line
-                        type="monotone"
-                        dataKey="actual"
-                        stroke="#387908"
-                        strokeWidth={2}
-                        // dot={false}
-                        name='Actual'
-                        isAnimationActive={false}
-                    />
-                </LineChart>
+                        <Line
+                            type="monotone"
+                            dataKey="actual"
+                            stroke="#387908"
+                            strokeWidth={2}
+                            // dot={false}
+                            name='Actual'
+                            isAnimationActive={false}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
                 : <Typography variant='h6'>Loading graph...</Typography>
             }
         </div>

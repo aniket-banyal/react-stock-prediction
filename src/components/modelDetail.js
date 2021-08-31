@@ -6,7 +6,7 @@ function ModelDetail({ model }) {
     console.log('ModelDetail render')
 
     return (
-        <Container>
+        <Container style={{ width: '80%', height: '80%' }}>
             {model ?
                 <div>
                     <p>Ticker: {model.ticker}</p>

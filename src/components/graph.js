@@ -1,4 +1,5 @@
-import { Typography, Button } from '@material-ui/core'
+import { Tabs, Tab, makeStyles } from "@material-ui/core"
+import { Typography } from '@material-ui/core'
 import { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label } from 'recharts'
 import { getPreviousPredictions } from '../utils/previousPredictions'
@@ -14,8 +15,17 @@ function formatDate(date) {
     return `${day} ${month}`
 }
 
+
+const useStyles = makeStyles((theme) => ({
+    tabs: {
+        borderBottom: `2px solid ${theme.palette.divider}`,
+        backgroundColor: '#e0e0e0',
+    },
+}))
+
 const periods = [{ days: 7, label: '1 week' }, { days: 14, label: '2 weeks' }]
-const defaultDays = periods[0].days
+const defaultPeriodIdx = 0
+const defaultDays = periods[defaultPeriodIdx].days
 
 
 function Graph({ ticker }) {
@@ -23,6 +33,9 @@ function Graph({ ticker }) {
 
     const [days, setDays] = useState(defaultDays)
     const [predictions, setPredictions] = useState([])
+    const [selectedPeriod, setSelectedPeriod] = useState(defaultPeriodIdx)
+
+    const classes = useStyles()
 
     useEffect(() => {
         console.log('Graph fetchPredictions useEffect')
@@ -49,11 +62,21 @@ function Graph({ ticker }) {
     const data = predictions.map(prediction =>
         ({ date: formatDate(prediction.pred_date), prediction: prediction.prediction, actual: prediction.actual }))
 
+    const handleTabChange = (e, newValue) => {
+        setSelectedPeriod(newValue)
+        setDays(periods[newValue].days)
+    }
 
     return (
-        <div style={{ width: 'fit-content' }}>
-            {periods.map(period =>
-                <Button variant='contained' key={period.days} onClick={() => setDays(period.days)} > {period.label} </Button>)}
+        <div>
+            <Tabs
+                value={selectedPeriod}
+                onChange={handleTabChange}
+                centered
+                className={classes.tabs}
+            >
+                {periods.map(period => <Tab key={period.days} label={period.label} />)}
+            </Tabs>
 
             {data.length > 0 ?
                 <LineChart

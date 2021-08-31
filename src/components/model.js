@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     tabs: {
         borderRight: `1px solid ${theme.palette.divider}`,
         backgroundColor: '#e0e0e0',
+        overflow: 'visible',
     },
 }))
 
@@ -42,6 +43,7 @@ function Model({ all_models }) {
                         <Tab label="Details" />
                         <Tab label="Predict" />
                     </Tabs>
+
                     <div style={{ display: selectedTab === 0 ? 'block' : 'none', width: '100%', height: '100%' }}>
                         <ModelDetail model={model} />
                     </div>

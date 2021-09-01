@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
-import Select from 'react-select'
-import { Box, Container, Typography } from '@material-ui/core'
+import { Box, Container, Typography, TextField } from '@material-ui/core'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import { useTheme } from '@material-ui/core/styles'
 import SimpleGrid from './common/simpleGrid'
 import ModelCard from './modelCard'
 
@@ -10,13 +11,11 @@ function Models({ models, tickers }) {
 
     const [selectedTickers, setSelectedTickers] = useState([])
     const [predictionDate, setPredictionDate] = useState('')
-    const options = tickers.map(ticker => ({ value: ticker.symbol, label: ticker.symbol }))
+    const options = tickers.map(ticker => ticker.symbol)
 
-    const handleSelectChange = options => {
-        const selected = options.map(option => option.value)
-        setSelectedTickers(selected)
-    }
+    const theme = useTheme()
 
+    const handleSelectChange = (e, options) => { setSelectedTickers(options) }
 
     const filteredModels = useMemo(() => {
         return selectedTickers.length > 0 ? models.filter(model => selectedTickers.includes(model.ticker)) : models
@@ -28,13 +27,20 @@ function Models({ models, tickers }) {
 
     return (
         <Container style={{ padding: '40px' }}>
-            <Select
+            <Autocomplete
+                multiple
+                filterSelectedOptions
                 options={options}
-                placeholder='Select ticker'
-                autoFocus
-                isClearable
-                isMulti
-                onChange={handleSelectChange} />
+                onChange={handleSelectChange}
+                renderInput={params => (
+                    <TextField
+                        {...params}
+                        variant="filled"
+                        label="Ticker"
+                        InputLabelProps={{ style: { color: theme.palette.text.primary } }}
+                    />
+                )}
+            />
 
             {predictionDate &&
                 <Typography variant='h4' align='center'>

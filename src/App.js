@@ -3,7 +3,15 @@ import Models from './components/models'
 import Model from './components/model'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { createTheme, CssBaseline } from '@material-ui/core'
+import { ThemeProvider } from "@material-ui/styles";
 
+
+const theme = createTheme({
+  palette: {
+    type: "dark"
+  }
+})
 
 function App() {
   console.log('app render')
@@ -32,15 +40,18 @@ function App() {
   }, [])
 
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <Router>
-        <Switch>
-          <Route exact path='/' ><Home /> </Route>
-          <Route exact path='/models' ><Models models={models} tickers={tickers} /> </Route>
-          <Route path='/models/:symbol' ><Model all_models={models} /> </Route>
-        </Switch>
-      </Router>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className="App" style={{ width: '100vw', height: '100vh' }}>
+        <Router>
+          <Switch>
+            <Route exact path='/' ><Home /> </Route>
+            <Route exact path='/models' ><Models models={models} tickers={tickers} /> </Route>
+            <Route path='/models/:symbol' ><Model all_models={models} /> </Route>
+          </Switch>
+        </Router>
+      </div>
+    </ThemeProvider>
   )
 }
 

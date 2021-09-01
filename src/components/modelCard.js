@@ -2,17 +2,19 @@ import { Card, CardActionArea, CardContent, makeStyles, Typography } from "@mate
 import { useRouteMatch, Link as RouterLink } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getLatestPrediction, saveToLocalStorage } from '../utils/latestPrediction'
-import { red, green } from "@material-ui/core/colors"
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles(theme => ({
     root: {
         maxWidth: 345
     },
     title: {
         fontSize: 25,
     },
-    predictionClass: prediction => ({ color: prediction > 0 ? green[600] : red[600] })
-})
+    predictionClass: prediction => ({
+        color: prediction > 0 ? theme.palette.success.main : theme.palette.error.main
+    })
+}))
 
 
 function ModelCard({ model, setPredictionDate }) {
@@ -45,7 +47,7 @@ function ModelCard({ model, setPredictionDate }) {
         <Card className={classes.root}>
             <CardActionArea component={RouterLink} to={`${url}/${model.ticker}`}>
                 <CardContent>
-                    <Typography className={classes.title} color="primary" gutterBottom>
+                    <Typography className={classes.title} color="textPrimary" gutterBottom>
                         {model.ticker}
                     </Typography>
 

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, ResponsiveContainer } from 'recharts'
 import { getPreviousPredictions } from '../utils/previousPredictions'
 import { getMarketClosed } from '../utils/latestPrediction'
+import { amber, lightBlue } from "@material-ui/core/colors"
+import { useTheme } from "@material-ui/core/styles"
 
 
 const monthNumberToLabelMap = ['Jan', 'Feb', 'March', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
@@ -18,8 +20,7 @@ function formatDate(date) {
 
 const useStyles = makeStyles((theme) => ({
     tabs: {
-        borderBottom: `2px solid ${theme.palette.divider}`,
-        backgroundColor: '#e0e0e0',
+        borderBottom: `1px solid ${theme.palette.divider}`,
     },
 }))
 
@@ -34,6 +35,8 @@ function Graph({ ticker }) {
     const [days, setDays] = useState(defaultDays)
     const [predictions, setPredictions] = useState([])
     const [selectedPeriod, setSelectedPeriod] = useState(defaultPeriodIdx)
+
+    const theme = useTheme()
 
     const classes = useStyles()
 
@@ -67,6 +70,7 @@ function Graph({ ticker }) {
         setDays(periods[newValue].days)
     }
 
+
     return (
         <div style={{ width: '100%', height: '100%' }} >
             <Tabs
@@ -84,21 +88,28 @@ function Graph({ ticker }) {
                         data={data}
                         margin={{ top: 30, right: 30, left: 30, bottom: 30 }}
                     >
-                        <XAxis dataKey="date" />
-                        <YAxis padding={{ bottom: 30 }}>
+                        <XAxis
+                            dataKey="date"
+                            tick={{ fill: theme.palette.text.secondary }}
+                        />
+                        <YAxis
+                            padding={{ bottom: 30 }}
+                            tick={{ fill: theme.palette.text.secondary }}
+                        >
                             <Label
                                 value='% Change in Closing Price'
                                 angle={-90}
                                 position="insideBottomLeft"
+                                style={{ fill: theme.palette.text.secondary }}
                             />
                         </YAxis>
-                        <CartesianGrid stroke="#f5f5f5" />
-                        <Tooltip />
+                        <CartesianGrid stroke={theme.palette.grey[800]} />
+                        <Tooltip contentStyle={{ backgroundColor: theme.palette.background.paper }} />
                         <Legend wrapperStyle={{ position: 'relative' }} />
                         <Line
                             type="monotone"
                             dataKey="prediction"
-                            stroke="#ff7300"
+                            stroke={lightBlue[200]}
                             strokeWidth={2}
                             // dot={false}
                             name='Prediction'
@@ -107,7 +118,7 @@ function Graph({ ticker }) {
                         <Line
                             type="monotone"
                             dataKey="actual"
-                            stroke="#387908"
+                            stroke={amber[300]}
                             strokeWidth={2}
                             // dot={false}
                             name='Actual'

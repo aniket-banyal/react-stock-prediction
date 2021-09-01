@@ -5,7 +5,7 @@ import ModelDetail from "./modelDetail"
 import ModelPredict from "./modelPredict"
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
         display: 'flex',
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
     tabs: {
         borderRight: `1px solid ${theme.palette.divider}`,
-        backgroundColor: '#e0e0e0',
+        backgroundColor: theme.palette.background.paper,
         overflow: 'visible',
     },
 }))

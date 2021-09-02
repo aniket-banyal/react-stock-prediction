@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Box, Container, Typography, TextField } from '@material-ui/core'
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import { Autocomplete, Box, Container, Typography, TextField } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
 import SimpleGrid from './common/simpleGrid'
 import ModelCard from './modelCard'

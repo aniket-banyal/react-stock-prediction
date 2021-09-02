@@ -1,4 +1,4 @@
-import { Tabs, Tab, makeStyles } from "@material-ui/core"
+import { Tabs, Tab } from "@material-ui/core"
 import { Typography } from '@material-ui/core'
 import { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, ResponsiveContainer } from 'recharts'
@@ -18,12 +18,6 @@ function formatDate(date) {
 }
 
 
-const useStyles = makeStyles((theme) => ({
-    tabs: {
-        borderBottom: `1px solid ${theme.palette.divider}`,
-    },
-}))
-
 const periods = [{ days: 7, label: '1 week' }, { days: 14, label: '2 weeks' }]
 const defaultPeriodIdx = 0
 const defaultDays = periods[defaultPeriodIdx].days
@@ -38,7 +32,6 @@ function Graph({ ticker }) {
 
     const theme = useTheme()
 
-    const classes = useStyles()
 
     useEffect(() => {
         console.log('Graph fetchPredictions useEffect')
@@ -77,7 +70,10 @@ function Graph({ ticker }) {
                 value={selectedPeriod}
                 onChange={handleTabChange}
                 centered
-                className={classes.tabs}
+                sx={{
+                    borderBottom: 1,
+                    borderColor: 'divider'
+                }}
             >
                 {periods.map(period => <Tab key={period.days} label={period.label} />)}
             </Tabs>
@@ -104,7 +100,7 @@ function Graph({ ticker }) {
                             />
                         </YAxis>
                         <CartesianGrid stroke={theme.palette.grey[800]} />
-                        <Tooltip contentStyle={{ backgroundColor: theme.palette.background.paper }} />
+                        <Tooltip contentStyle={{ backgroundColor: theme.palette.grey[900] }} />
                         <Legend wrapperStyle={{ position: 'relative' }} />
                         <Line
                             type="monotone"

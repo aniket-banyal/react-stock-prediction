@@ -3,6 +3,7 @@ import { useState } from "react"
 
 function ModelPredict({ model }) {
     console.log('ModelPredict render')
+
     const [predictionDate, setPredictionDate] = useState('')
     const [predictionValue, setPredictionValue] = useState('')
     const [isLoading, setIsLoading] = useState(false)

@@ -1,21 +1,16 @@
 import { useState } from 'react'
 import { useParams } from "react-router-dom"
-import { Tabs, Tab, makeStyles } from "@material-ui/core"
+import { Tabs, Tab } from "@material-ui/core"
+import { makeStyles } from "@material-ui/styles"
 import ModelDetail from "./modelDetail"
 import ModelPredict from "./modelPredict"
 
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(({
     root: {
         flexGrow: 1,
         display: 'flex',
         width: '100%',
         height: '100%',
-    },
-    tabs: {
-        borderRight: `1px solid ${theme.palette.divider}`,
-        backgroundColor: theme.palette.background.paper,
-        overflow: 'visible',
     },
 }))
 
@@ -38,7 +33,12 @@ function Model({ all_models }) {
                         value={selectedTab}
                         onChange={(e, newValue) => { setSelectedTab(newValue) }}
                         orientation="vertical"
-                        className={classes.tabs}
+                        sx={{
+                            borderRight: 1,
+                            borderColor: 'divider',
+                            bgcolor: 'grey.900',
+                            overflow: 'visible',
+                        }}
                     >
                         <Tab label="Details" />
                         <Tab label="Predict" />
@@ -50,7 +50,8 @@ function Model({ all_models }) {
                     <div style={{ display: selectedTab === 1 ? 'block' : 'none' }}>
                         <ModelPredict model={model} />
                     </div>
-                </div >
+
+                </div>
                 : <div>404 Not Found</div>
             }
         </div>

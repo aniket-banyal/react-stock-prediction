@@ -1,20 +1,7 @@
-import { Card, CardActionArea, CardContent, makeStyles, Typography } from "@material-ui/core"
+import { Card, CardActionArea, CardContent, Typography } from "@material-ui/core"
 import { useRouteMatch, Link as RouterLink } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getLatestPrediction, saveToLocalStorage } from '../utils/latestPrediction'
-
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        maxWidth: 345
-    },
-    title: {
-        fontSize: 25,
-    },
-    predictionClass: prediction => ({
-        color: prediction > 0 ? theme.palette.success.main : theme.palette.error.main
-    })
-}))
 
 
 function ModelCard({ model, setPredictionDate }) {
@@ -26,7 +13,6 @@ function ModelCard({ model, setPredictionDate }) {
     const [prediction, setPrediction] = useState()
     const [isLoading, setIsLoading] = useState(false)
 
-    const classes = useStyles(prediction?.prediction)
 
     useEffect(() => {
         const fetchPrediction = async () => {
@@ -44,10 +30,14 @@ function ModelCard({ model, setPredictionDate }) {
 
 
     return (
-        <Card className={classes.root}>
+        <Card>
             <CardActionArea component={RouterLink} to={`${url}/${model.ticker}`}>
                 <CardContent>
-                    <Typography className={classes.title} color="textPrimary" gutterBottom>
+                    <Typography
+                        color="textPrimary"
+                        variant='h5'
+                        gutterBottom
+                    >
                         {model.ticker}
                     </Typography>
 
@@ -60,7 +50,9 @@ function ModelCard({ model, setPredictionDate }) {
 
                     <Typography
                         variant="h5"
-                        className={classes.predictionClass}
+                        sx={{
+                            color: prediction?.prediction > 0 ? 'success.main' : 'error.main'
+                        }}
                     >
                         {isLoading && 'Loading...'}
                         {prediction && `${prediction?.prediction} %`}

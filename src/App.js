@@ -3,13 +3,13 @@ import Models from './components/models'
 import Model from './components/model'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { createTheme, CssBaseline } from '@material-ui/core'
-import { ThemeProvider } from "@material-ui/styles";
+import { CssBaseline } from '@material-ui/core'
+import { ThemeProvider, createTheme } from "@material-ui/core/styles"
 
 
 const theme = createTheme({
   palette: {
-    type: "dark"
+    mode: "dark"
   }
 })
 

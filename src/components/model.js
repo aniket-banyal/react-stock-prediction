@@ -15,6 +15,18 @@ const useStyles = makeStyles(({
 }))
 
 
+const showStyle = {
+    visibility: 'visible',
+    width: '100%',
+    height: '100%',
+}
+
+const hideStyle = {
+    visibility: 'hidden',
+    width: 0,
+    height: 0,
+}
+
 function Model({ all_models }) {
     console.log('Model render')
 
@@ -44,10 +56,11 @@ function Model({ all_models }) {
                         <Tab label="Predict" />
                     </Tabs>
 
-                    <div style={{ display: selectedTab === 0 ? 'block' : 'none', width: '100%', height: '100%' }}>
+                    <div style={selectedTab === 0 ? showStyle : hideStyle}>
                         <ModelDetail model={model} />
                     </div>
-                    <div style={{ display: selectedTab === 1 ? 'block' : 'none' }}>
+
+                    <div style={selectedTab === 1 ? showStyle : hideStyle}>
                         <ModelPredict model={model} />
                     </div>
 

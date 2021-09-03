@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams } from "react-router-dom"
-import { Tabs, Tab } from "@material-ui/core"
+import { Tabs, Tab, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/styles"
 import ModelDetail from "./modelDetail"
 import ModelPredict from "./modelPredict"
@@ -39,7 +39,18 @@ function Model({ all_models }) {
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            {model ?
+            {all_models.length < 1 &&
+                <Typography variant='h4'>
+                    Loading...
+                </Typography>}
+
+            {all_models.length > 0 && !model &&
+                <Typography variant='h2'>
+                    404 Not Found
+                </Typography>
+            }
+
+            {model &&
                 <div className={classes.root}>
                     <Tabs
                         value={selectedTab}
@@ -65,7 +76,6 @@ function Model({ all_models }) {
                     </div>
 
                 </div>
-                : <div>404 Not Found</div>
             }
         </div>
     )

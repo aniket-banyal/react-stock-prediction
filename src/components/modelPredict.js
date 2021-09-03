@@ -4,18 +4,37 @@ import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
 import { format } from "date-fns"
 import { useState } from "react"
 
+const dateFormat = 'yyyy-MM-dd'
+
 function ModelPredict({ model }) {
     console.log('ModelPredict render')
 
     const [predictionDate, setPredictionDate] = useState(null)
     const [predictionValue, setPredictionValue] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [disableSubmitButton, setDisableSubmitButton] = useState(false)
 
     const fetchPrediction = async (e) => {
         e.preventDefault()
         setIsLoading(true)
+
+        let predDate
+        try {
+            predDate = format(predictionDate, dateFormat)
+        }
+        catch (e) {
+            if (e instanceof RangeError)
+                setDisableSubmitButton(true)
+            else
+                console.log(e)
+
+            setIsLoading(false)
+            setPredictionValue('')
+            return
+        }
+
         const res = await fetch(`http://localhost:8000/api/prediction/${model.ticker}/?` + new URLSearchParams({
-            pred_date: predictionDate,
+            pred_date: predDate,
         }))
         const predictionValue = await res.json()
         setPredictionValue(predictionValue)
@@ -23,9 +42,21 @@ function ModelPredict({ model }) {
     }
 
     const handlePredictionDateChange = date => {
-        const formattedDate = format(date, 'yyyy-MM-dd')
-        setPredictionDate(formattedDate)
+        try {
+            format(date, dateFormat)
+            setDisableSubmitButton(false)
+        }
+        catch (e) {
+            if (e instanceof RangeError)
+                setDisableSubmitButton(true)
+            else
+                console.log(e)
+        }
+        finally {
+            setPredictionDate(date)
+        }
     }
+
 
     return (
         <Container
@@ -59,12 +90,13 @@ function ModelPredict({ model }) {
                                 label="Prediction Date"
                                 value={predictionDate}
                                 onChange={handlePredictionDateChange}
-                                inputFormat='dd-MM-yyyy'
-                                mask='__-__-____'
+                                inputFormat={dateFormat}
+                                mask='____-__-__'
                                 renderInput={(params) => <TextField {...params} required />}
                             />
                         </LocalizationProvider>
                         <Button
+                            disabled={disableSubmitButton}
                             type='submit'
                             variant='contained'
                         >

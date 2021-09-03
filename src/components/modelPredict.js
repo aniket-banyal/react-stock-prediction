@@ -62,8 +62,8 @@ function ModelPredict({ model }) {
         <Container
             sx={{
                 m: 5,
-                width: '100%',
-                height: '100%'
+                width: '80%',
+                height: '80%',
             }}
         >
             {model ?
@@ -72,7 +72,7 @@ function ModelPredict({ model }) {
                         display: 'flex',
                         flexDirection: 'column',
                         width: '50%',
-                        height: '30%',
+                        height: '40%',
                         justifyContent: 'space-between'
                     }}
                 >

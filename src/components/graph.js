@@ -20,13 +20,11 @@ function formatDate(date) {
 
 const periods = [{ days: 7, label: '1 week' }, { days: 14, label: '2 weeks' }]
 const defaultPeriodIdx = 0
-const defaultDays = periods[defaultPeriodIdx].days
 
 
 function Graph({ ticker }) {
     console.log('Graph render')
 
-    const [days, setDays] = useState(defaultDays)
     const [predictions, setPredictions] = useState([])
     const [selectedPeriod, setSelectedPeriod] = useState(defaultPeriodIdx)
 
@@ -39,6 +37,7 @@ function Graph({ ticker }) {
         setPredictions([])
 
         const fetchPredictions = async () => {
+            const days = periods[selectedPeriod].days
             const predictions = await getPreviousPredictions(ticker, days, periods[periods.length - 1].days)
             setPredictions(predictions)
             if (days === periods[periods.length - 1].days) {
@@ -52,16 +51,13 @@ function Graph({ ticker }) {
         }
 
         fetchPredictions()
-    }, [ticker, days])
+    }, [ticker, selectedPeriod])
 
 
     const data = predictions.map(prediction =>
         ({ date: formatDate(prediction.pred_date), prediction: prediction.prediction, actual: prediction.actual }))
 
-    const handleTabChange = (e, newValue) => {
-        setSelectedPeriod(newValue)
-        setDays(periods[newValue].days)
-    }
+    const handleTabChange = (e, newValue) => { setSelectedPeriod(newValue) }
 
 
     return (

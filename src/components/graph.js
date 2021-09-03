@@ -79,7 +79,7 @@ function Graph({ ticker }) {
             </Tabs>
 
             {data.length > 0 ?
-                <ResponsiveContainer>
+                <ResponsiveContainer minWidth={100}>
                     <LineChart
                         data={data}
                         margin={{ top: 30, right: 30, left: 30, bottom: 30 }}

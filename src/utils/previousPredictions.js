@@ -13,10 +13,10 @@ const fetchPredictions = async (ticker, days) => {
 
 const getPreviousPredictions = async (ticker, days, maxDays) => {
     let latestPredictionsAvailable = true
-    let predictionsMetaData = JSON.parse(localStorage.getItem(`${ticker}-predictionsMetaData`))
+    const predictionsData = JSON.parse(localStorage.getItem(`${ticker}-predictions`))
 
-    if (predictionsMetaData) {
-        let { date, marketClosed } = predictionsMetaData
+    if (predictionsData && predictionsData.metaData) {
+        let { date, marketClosed } = predictionsData.metaData
 
         // date stored in localStorage is of type string so need to parse it to get date object 
         date = new Date(date)
@@ -31,12 +31,20 @@ const getPreviousPredictions = async (ticker, days, maxDays) => {
         latestPredictionsAvailable = false
 
     if (latestPredictionsAvailable) {
-        let predictions = JSON.parse(localStorage.getItem(`${ticker}-predictions`))
+        const predictions = predictionsData.predictions
         if (predictions && predictions.length === maxDays)
             return predictions.slice(maxDays - days, predictions.length)
     }
 
-    let predictions = await fetchPredictions(ticker, days)
+    const predictions = await fetchPredictions(ticker, days)
+    if (days === maxDays) {
+        const date = new Date()
+        date.setHours(0, 0, 0, 0)
+
+        const metaData = { date, marketClosed: getMarketClosed() }
+        const predictionsData = { predictions, metaData }
+        localStorage.setItem(`${ticker}-predictions`, JSON.stringify(predictionsData))
+    }
     return predictions
 }
 

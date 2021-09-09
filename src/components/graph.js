@@ -3,7 +3,6 @@ import { Typography } from '@material-ui/core'
 import { useState, useEffect } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, ResponsiveContainer } from 'recharts'
 import { getPreviousPredictions } from '../utils/previousPredictions'
-import { getMarketClosed } from '../utils/latestPrediction'
 import { amber, lightBlue } from "@material-ui/core/colors"
 import { useTheme } from "@material-ui/core/styles"
 
@@ -40,14 +39,6 @@ function Graph({ ticker }) {
             const days = periods[selectedPeriod].days
             const predictions = await getPreviousPredictions(ticker, days, periods[periods.length - 1].days)
             setPredictions(predictions)
-            if (days === periods[periods.length - 1].days) {
-                localStorage.setItem(`${ticker}-predictions`, JSON.stringify(predictions))
-
-                const date = new Date()
-                date.setHours(0, 0, 0, 0)
-                const metaData = { date, marketClosed: getMarketClosed() }
-                localStorage.setItem(`${ticker}-predictionsMetaData`, JSON.stringify(metaData))
-            }
         }
 
         fetchPredictions()

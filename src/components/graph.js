@@ -32,16 +32,23 @@ function Graph({ ticker }) {
 
     useEffect(() => {
         console.log('Graph fetchPredictions useEffect')
+
+        let isMounted = true
         // set predictions to [] so that if switching from one period to other, Loading... shows up instead of the old graph
         setPredictions([])
 
         const fetchPredictions = async () => {
             const days = periods[selectedPeriod].days
             const predictions = await getPreviousPredictions(ticker, days, periods[periods.length - 1].days)
-            setPredictions(predictions)
+
+            // when selectedPeriod changes this useEffect will call the cleanup func and isMounted will be set to false and then setPredictions won't be called for previous selectedPeriod 
+            if (isMounted)
+                setPredictions(predictions)
         }
 
         fetchPredictions()
+
+        return () => isMounted = false
     }, [ticker, selectedPeriod])
 
 

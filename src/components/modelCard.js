@@ -1,7 +1,7 @@
 import { Card, CardActionArea, CardContent, Typography } from "@material-ui/core"
 import { useRouteMatch, Link as RouterLink } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { getLatestPrediction, saveToLocalStorage } from '../utils/latestPrediction'
+import { getLatestPrediction } from '../utils/latestPrediction'
 
 
 function ModelCard({ model, setPredictionDate }) {
@@ -20,7 +20,6 @@ function ModelCard({ model, setPredictionDate }) {
             setIsLoading(true)
 
             const data = await getLatestPrediction(model.ticker)
-            saveToLocalStorage(model.ticker, data)
             setPrediction(data)
             setIsLoading(false)
             setPredictionDate(data.pred_date)

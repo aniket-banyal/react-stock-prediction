@@ -41,6 +41,7 @@ const getLatestPrediction = async (ticker) => {
         return savedPrediction
 
     const data = await fetchPrediction(ticker)
+    saveToLocalStorage(ticker, data)
     return data
 }
 

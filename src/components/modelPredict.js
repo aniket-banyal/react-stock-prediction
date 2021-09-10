@@ -3,8 +3,48 @@ import { DatePicker, LocalizationProvider } from "@material-ui/lab"
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
 import { format } from "date-fns"
 import { useState } from "react"
+import { getMarketClosed } from "../utils/latestPrediction"
 
 const dateFormat = 'yyyy-MM-dd'
+
+const addDays = (date, days) => {
+    var result = new Date(date)
+    result.setDate(result.getDate() + days)
+    return result
+}
+
+const disableCertainDates = date => {
+    //disable Sunday and Saturday
+    if (date.getDay() === 0 || date.getDay() === 6)
+        return true
+
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    //Friday
+    if (today.getDay() === 5) {
+        if (getMarketClosed())
+            return date > addDays(today, 3)
+        return date > today
+    }
+
+    //Saturday
+    if (today.getDay() === 6)
+        return date > addDays(today, 2)
+
+    if (date > addDays(today, 1))
+        return true
+
+    // if date is today + 1, then disable it if market not closed
+    if (date.getTime() === addDays(today, 1).getTime()) {
+        if (getMarketClosed())
+            return false
+        return true
+    }
+
+    return false
+}
+
 
 function ModelPredict({ model }) {
     console.log('ModelPredict render')
@@ -93,6 +133,7 @@ function ModelPredict({ model }) {
                                 inputFormat={dateFormat}
                                 mask='____-__-__'
                                 renderInput={(params) => <TextField {...params} required />}
+                                shouldDisableDate={disableCertainDates}
                             />
                         </LocalizationProvider>
                         <Button

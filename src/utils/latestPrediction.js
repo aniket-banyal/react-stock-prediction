@@ -1,6 +1,6 @@
 function getMarketClosed() {
     const today = new Date()
-    return today.getHours() > 16 && today.getMinutes() >= 0
+    return today.getHours() >= 16 && today.getMinutes() >= 0
 }
 
 function saveToLocalStorage(key, value) {

@@ -85,7 +85,6 @@ function ModelPredict({ model }) {
     const handlePredictionDateChange = date => {
         try {
             format(date, dateFormat)
-            setDisableSubmitButton(false)
         }
         catch (e) {
             if (e instanceof RangeError)
@@ -98,6 +97,24 @@ function ModelPredict({ model }) {
         }
     }
 
+    const handleDatePickerError = (reason, value) => {
+        switch (reason) {
+            case "invalidDate":
+                setDisableSubmitButton(true)
+                break;
+
+            case "shouldDisableDate":
+                setDisableSubmitButton(true)
+                break;
+
+            case null:
+                setDisableSubmitButton(false)
+                break;
+
+            default:
+                break;
+        }
+    }
 
     return (
         <Container
@@ -135,6 +152,7 @@ function ModelPredict({ model }) {
                                 mask='____-__-__'
                                 renderInput={(params) => <TextField {...params} required />}
                                 shouldDisableDate={disableCertainDates}
+                                onError={handleDatePickerError}
                             />
                         </LocalizationProvider>
                         <Button

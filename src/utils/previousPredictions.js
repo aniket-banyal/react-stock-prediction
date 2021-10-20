@@ -4,7 +4,7 @@ import { getMarketClosed } from '../utils/latestPrediction'
 const fetchPredictions = async (ticker, days) => {
     console.log('---fetchPredictions called---')
 
-    const res = await fetch(`http://localhost:8000/api/predictions/${ticker}/?` + new URLSearchParams({
+    const res = await fetch(`https://react-stock-prediction.herokuapp.com/api/predictions/${ticker}/?` + new URLSearchParams({
         period: days,
     }))
     const predictions = await res.json()

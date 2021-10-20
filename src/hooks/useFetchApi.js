@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const API_BASE_URL = 'http://localhost:8000/api'
+const API_BASE_URL = 'https://react-stock-prediction.herokuapp.com/api'
 
 // If you directly write queryParams={} in useFetchApi then on every render it will be a different obj and will cause infinite loop 
 const default_query_params = {}

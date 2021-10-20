@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axios_helper = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: "https://react-stock-prediction.herokuapp.com/api",
     headers: {
         "Content-type": "application/json"
     }

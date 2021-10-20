@@ -74,7 +74,7 @@ function ModelPredict({ model }) {
             return
         }
 
-        const res = await fetch(`http://localhost:8000/api/prediction/${model.ticker}/?` + new URLSearchParams({
+        const res = await fetch(`https://react-stock-prediction.herokuapp.com/api/prediction/${model.ticker}/?` + new URLSearchParams({
             pred_date: predDate,
         }))
         const predictionValue = await res.json()

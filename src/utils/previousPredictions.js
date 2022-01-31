@@ -2,7 +2,7 @@ import { getMarketClosed } from '../utils/latestPrediction'
 
 
 const fetchPredictions = async (ticker, days) => {
-    console.log('---fetchPredictions called---')
+    // console.log('---fetchPredictions called---')
 
     const res = await fetch(`http://localhost:8000/api/predictions/${ticker}/?` + new URLSearchParams({
         period: days,

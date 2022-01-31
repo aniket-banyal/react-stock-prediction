@@ -1,5 +1,5 @@
 function ListItem({ item }) {
-    console.log('ListItem render')
+    // console.log('ListItem render')
 
     return (
         <div className='listitem'>

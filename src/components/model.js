@@ -28,7 +28,7 @@ const hideStyle = {
 }
 
 function Model({ all_models }) {
-    console.log('Model render')
+    // console.log('Model render')
 
     const [selectedTab, setSelectedTab] = useState(0)
 

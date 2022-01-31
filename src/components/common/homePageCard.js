@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
 function HomePageCard({ title, link }) {
-    console.log('HomePageCard render')
+    // console.log('HomePageCard render')
 
     return (
         <div className="card">

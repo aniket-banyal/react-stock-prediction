@@ -1,4 +1,4 @@
-import Home from './components/home'
+// import Home from './components/home'
 import Models from './components/models'
 import Model from './components/model'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
@@ -14,7 +14,7 @@ const theme = createTheme({
 })
 
 function App() {
-  console.log('app render')
+  // console.log('app render')
   const [models, isLoading, isError] = useFetchApi('models')
   const tickers = models.map(model => model.ticker)
 
@@ -28,9 +28,9 @@ function App() {
         {!isLoading && !isError &&
           <Router>
             <Switch>
-              <Route exact path='/' ><Home /> </Route>
-              <Route exact path='/models' ><Models models={models} tickers={tickers} /> </Route>
-              <Route path='/models/:symbol' ><Model all_models={models} /> </Route>
+              {/* <Route exact path='/' ><Home /> </Route> */}
+              <Route exact path='/' ><Models models={models} tickers={tickers} /> </Route>
+              <Route path='/:symbol' ><Model all_models={models} /> </Route>
             </Switch>
           </Router>
         }

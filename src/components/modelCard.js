@@ -5,7 +5,7 @@ import { getLatestPrediction } from '../utils/latestPrediction'
 
 
 function ModelCard({ model, setPredictionDate }) {
-    console.log('ModelCard render')
+    // console.log('ModelCard render')
     let { url } = useRouteMatch()
     if (url.endsWith('/'))
         url = url.slice(0, -1)
@@ -16,7 +16,7 @@ function ModelCard({ model, setPredictionDate }) {
 
     useEffect(() => {
         const fetchPrediction = async () => {
-            console.log('ModelCard fetchPrediction useEffect')
+            // console.log('ModelCard fetchPrediction useEffect')
             setIsLoading(true)
 
             const data = await getLatestPrediction(model.ticker)

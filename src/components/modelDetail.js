@@ -3,7 +3,7 @@ import Graph from './graph'
 
 
 function ModelDetail({ model }) {
-    console.log('ModelDetail render')
+    // console.log('ModelDetail render')
 
     return (
         <Container style={{ width: '80%', height: '80%' }}>

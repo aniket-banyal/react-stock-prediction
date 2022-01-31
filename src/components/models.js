@@ -10,7 +10,6 @@ function Models({ models, tickers }) {
 
     const [selectedTickers, setSelectedTickers] = useState([])
     const [predictionDate, setPredictionDate] = useState('')
-    const options = tickers.map(ticker => ticker.symbol)
 
     const theme = useTheme()
 
@@ -29,7 +28,7 @@ function Models({ models, tickers }) {
             <Autocomplete
                 multiple
                 filterSelectedOptions
-                options={options}
+                options={tickers}
                 onChange={handleSelectChange}
                 renderInput={params => (
                     <TextField

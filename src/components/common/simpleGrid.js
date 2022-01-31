@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 
 
 function SimpleGrid({ children }) {
-    console.log('SimpleGrid render')
+    // console.log('SimpleGrid render')
 
     return (
         <Grid container spacing={3}>

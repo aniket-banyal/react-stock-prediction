@@ -48,7 +48,7 @@ const disableCertainDates = date => {
 
 
 function ModelPredict({ model }) {
-    console.log('ModelPredict render')
+    // console.log('ModelPredict render')
 
     const [predictionDate, setPredictionDate] = useState(null)
     const [predictionValue, setPredictionValue] = useState('')

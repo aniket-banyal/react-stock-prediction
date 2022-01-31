@@ -6,11 +6,10 @@ import ModelCard from './modelCard'
 
 
 function Models({ models, tickers }) {
-    console.log('Models render')
+    // console.log('Models render')
 
     const [selectedTickers, setSelectedTickers] = useState([])
     const [predictionDate, setPredictionDate] = useState('')
-    const options = tickers.map(ticker => ticker.symbol)
 
     const theme = useTheme()
 
@@ -29,7 +28,7 @@ function Models({ models, tickers }) {
             <Autocomplete
                 multiple
                 filterSelectedOptions
-                options={options}
+                options={tickers}
                 onChange={handleSelectChange}
                 renderInput={params => (
                     <TextField

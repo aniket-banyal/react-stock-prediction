@@ -2,7 +2,7 @@ import { getMarketClosed } from '../utils/latestPrediction'
 
 
 const fetchPredictions = async (ticker, days) => {
-    console.log('---fetchPredictions called---')
+    // console.log('---fetchPredictions called---')
 
     const res = await fetch(`https://django-stock-prediction.herokuapp.com/api/predictions/${ticker}/?` + new URLSearchParams({
         period: days,

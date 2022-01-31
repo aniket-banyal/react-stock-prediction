@@ -22,7 +22,7 @@ const defaultPeriodIdx = 0
 
 
 function Graph({ ticker }) {
-    console.log('Graph render')
+    // console.log('Graph render')
 
     const [predictions, setPredictions] = useState([])
     const [selectedPeriod, setSelectedPeriod] = useState(defaultPeriodIdx)
@@ -31,7 +31,7 @@ function Graph({ ticker }) {
 
 
     useEffect(() => {
-        console.log('Graph fetchPredictions useEffect')
+        // console.log('Graph fetchPredictions useEffect')
 
         let isMounted = true
         // set predictions to [] so that if switching from one period to other, Loading... shows up instead of the old graph

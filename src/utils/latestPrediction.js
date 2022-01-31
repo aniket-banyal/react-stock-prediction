@@ -8,7 +8,7 @@ function saveToLocalStorage(key, value) {
 }
 
 const fetchPrediction = async (ticker) => {
-    console.log('-fetchPrediction called-')
+    // console.log('-fetchPrediction called-')
     const res = await fetch(`https://django-stock-prediction.herokuapp.com/api/prediction/${ticker}/?` + new URLSearchParams({
         latest: true,
     }))

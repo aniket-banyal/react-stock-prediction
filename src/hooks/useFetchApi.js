@@ -11,7 +11,7 @@ const useFetchApi = (endpoint, queryParams = default_query_params, initialData =
     const [isError, setIsError] = useState(false)
 
     useEffect(() => {
-        console.log('useFetchApi useEffect')
+        // console.log('useFetchApi useEffect')
         const fetchModels = async () => {
             setIsLoading(true)
             setIsError(false)

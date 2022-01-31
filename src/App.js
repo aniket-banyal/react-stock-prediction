@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { CssBaseline, Typography } from '@material-ui/core'
 import { ThemeProvider, createTheme } from "@material-ui/core/styles"
 import useFetchApi from './hooks/useFetchApi'
-
+import ButtonAppBar from './components/appbar'
 
 const theme = createTheme({
   palette: {
@@ -27,6 +27,7 @@ function App() {
 
         {!isLoading && !isError &&
           <Router>
+            <ButtonAppBar />
             <Switch>
               {/* <Route exact path='/' ><Home /> </Route> */}
               <Route exact path='/' ><Models models={models} tickers={tickers} /> </Route>

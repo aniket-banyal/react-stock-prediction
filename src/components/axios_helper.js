@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axios_helper = axios.create({
-    baseURL: "https://django-stock-prediction.herokuapp.com/api",
+    baseURL: "https://ani-stock-prediction-api.herokuapp.com/api",
     headers: {
         "Content-type": "application/json"
     }
